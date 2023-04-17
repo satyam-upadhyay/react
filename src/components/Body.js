@@ -19,18 +19,18 @@ const Body = () => {
   if (!allRestaurants) return null;
   return (
     <>
-      <div className="search-container">
+      <div className="search-container bg-pink-50 p-5 my-5 ">
         <input
           type="text"
-          className="search-input"
-          placeholder="search"
+          className="search-input p-2 m-2 focus:bg-gray-200"
+          placeholder="Search"
           value={searchTxt}
-          onChange={(e) => {
+          onChange={(e) => { 
             setSearchTxt(e.target.value);
           }}
         />
         <button
-          className="search-btn"
+          className="search-btn p-2 m-2 bg-purple-900 text-white rounded-md hover:bg-purple-400"
           onClick={() => {
             const data = filterData(searchTxt, allRestaurants);
             setFilteredRestaurants(data);
@@ -43,7 +43,7 @@ const Body = () => {
         <Shimmer />
       ) : (
         <>
-          <div className="restaurant-list">
+          <div className="restaurant-list flex flex-wrap">
             {filteredRestaurants.length === 0 ? (
               <h1>No Restaurants matches your search</h1>
             ) : (
