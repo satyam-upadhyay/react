@@ -2,15 +2,9 @@ import RestaurantCard from "./RestaurantCard";
 
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { filterData } from "./utils/helper";
 
-function filterData(searchText, restaurants) {
-  const filterData = restaurants.filter((restaurant) =>
-    restaurant.data.name.toLowerCase().includes(searchText.toLowerCase())
-  );
-
-  return filterData;
-}
 const Body = () => {
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [allRestaurants, setAllRestaurants] = useState([]);
@@ -30,11 +24,9 @@ const Body = () => {
       throw new Error(message);
     }
     const json = await data.json();
-    console.log(json);
     setAllRestaurants(json?.data?.cards[2].data?.data?.cards);
     setFilteredRestaurants(json?.data?.cards[2].data?.data?.cards);
   }
-  console.log("rendering...");
   if (!allRestaurants) return null;
   return (
     <>
@@ -63,16 +55,20 @@ const Body = () => {
       ) : (
         <>
           <div className="restaurant-list">
-            {
-                (filteredRestaurants.length===0 ? <h1>No Restaurants matches your search</h1>: filteredRestaurants.map((restaurant) => {
-                    return (
-                        <Link key={restaurant?.data?.id} to={"/restaurant/"+restaurant?.data?.id}>
-                        <RestaurantCard {...restaurant.data}  />
-                        </Link> 
-                    );
-                  }))
-            }
-           
+            {filteredRestaurants.length === 0 ? (
+              <h1>No Restaurants matches your search</h1>
+            ) : (
+              filteredRestaurants.map((restaurant) => {
+                return (
+                  <Link
+                    key={restaurant?.data?.id}
+                    to={"/restaurant/" + restaurant?.data?.id}
+                  >
+                    <RestaurantCard {...restaurant.data} />
+                  </Link>
+                );
+              })
+            )}
           </div>
         </>
       )}

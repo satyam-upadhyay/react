@@ -12,18 +12,22 @@ class ProfileClass extends Component {
             timer: null
         }
     }
-    async componentDidMount(){
-        const data = await fetch("https://api.github.com/users/"+this.props.name);
-        const json = await data.json();
+     componentDidMount(){
+        /* const data = await fetch("https://api.github.com/users/"+this.props.name);
+        const json = await data.json(); */
         //console.log(json);
+       this.timer = setInterval(()=>console.log("interval"), 1000);
         
         console.log("ComponentDidMount "+this.props.name);
-        this.setState({
+       /*  this.setState({
             name:json.name,
             avatar:json.avatar_url,
             bio:json.bio,
-        })
+        }) */
         
+    }
+    componentDidUpdate(){
+        console.log("ComponentDidUpdate ")
     }
 
     componentWillUnmount(){
