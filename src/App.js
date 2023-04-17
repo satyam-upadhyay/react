@@ -1,13 +1,18 @@
 import ReactDOM from "react-dom/client";
 import {Header} from "./components/Header";
 import Body from "./components/Body";
+import React, { Suspense } from "react";
 import Footer from "./components/Footer";
 import {createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
 import About from "./components/About";
 import Error from "./components/Error";
-import ContactUs from "./components/ContactUs";
+//import ContactUs from "./components/ContactUs";
 import RestaurantDetails from "./components/RestaurantDetails";
 import ProfileClass from "./components/ProfileClass";
+import ProfileFunction from "./components/ProfileFunction";
+import Shimmer from "./components/Shimmer";
+
+const ContactUs = React.lazy(()=>import("./components/ContactUs"));
 
 const AppLayout = () => {
   return (
@@ -35,11 +40,11 @@ const appRouter = createBrowserRouter ([{
       element: <About/>,
       children:[{
         path:"profile",
-        element: <ProfileClass name="satyam-upadhyay"/>,
+        element: <ProfileFunction/>,
       }]},
     {
       path:"/contact",
-      element: <ContactUs/>,
+      element:<Suspense fallback={<Shimmer/>}><ContactUs/></Suspense> ,
       
     },
     {
