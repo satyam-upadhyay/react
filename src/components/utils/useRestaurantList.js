@@ -15,7 +15,7 @@ const useRestaurantList = ()=>{
       throw new Error(message);
     }
     const json = await data.json();
-    setAllRestaurants(json?.data?.cards[2].data?.data?.cards);
+    setAllRestaurants(json?.data?.cards[2]?.data?.data?.cards);
   }
 
   return allRestaurants;

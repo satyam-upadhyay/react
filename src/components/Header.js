@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Logo from "../Asset/img/food-fiesta-new-delhi-logo.jpg";
 import { Link } from "react-router-dom";
 import useOnline from "./utils/useOnline";
+import UserContext from "./utils/UserContext";
 
 export const Title = () => {
   return (
@@ -14,6 +15,7 @@ export const Title = () => {
 export const Header = () => {
   const [loggedIn, setLoggedIn] = useState(true);
   const online = useOnline();
+  const { user, setUser } = useContext(UserContext);
   return (
     <div className="header flex  bg-pink-50 justify-between shadow-lg sm:bg-purple-200">
       <Title />
@@ -31,7 +33,7 @@ export const Header = () => {
           <li className="px-2 ">Cart</li>
         </ul>
       </div>
-      <h1 className="py-10">{online ? "🟢" : "🔴"}</h1>
+      <h1 className="py-10" >{(online ? "🟢" : "🔴")} {user.name}</h1>
       {loggedIn ? (
         <button className="px-" onClick={() => setLoggedIn(false)}>Log In</button>
       ) : (
